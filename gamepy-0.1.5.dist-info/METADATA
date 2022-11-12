@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: gamepy
+Version: 0.1.5
+Summary: game theory in python
+Author: xieyuheng
+Author-email: xyheme@gmail.com
+License: GPLv3
+Requires-Python: >=3
+
