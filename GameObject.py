@@ -1,12 +1,15 @@
 from abc import ABC, abstractmethod
 
 class GameObject(ABC):
-        """
-            class for "game objects" in the game. To be used as an interface like in other programming languages
-        """
+    """
+        class for "game objects" in the game. To be used as an interface like in other programming languages
+    """
 
-    ##Attributes
-    isActive = True
+    def __init__(self) -> None:
+        super().__init__()
+        self.isActive = True
+        self.updatePriority = 0 ##priority for updating. 0 by default. The greater the number, the higher its priority to be updated first. Negative numbers are allowed
+        self.renderPriority = 0 ##same as "updatePriority". Game objects that are rendered LAST will be drawn ontop of other game objects (i think)
 
     @abstractmethod
     def start():
