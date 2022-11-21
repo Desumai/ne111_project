@@ -38,3 +38,6 @@ class FrameHandler():
                 self.removeGameObject(gameObject)
             elif (gameObject.isActive):
                 gameObject.update()
+
+    def frameTasks(self):
+        pass
