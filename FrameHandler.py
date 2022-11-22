@@ -49,9 +49,8 @@ class FrameHandler():
                 State.IS_RUNNING == False
             pass
 
-    def calcMouseMovement(self) -> tuple:
+    def calcMouseMovement(self):
         """
-            () -> tuple (int, int)
             calculates the movement of the mouse and gives information to [State]
         """
         
@@ -64,6 +63,8 @@ class FrameHandler():
         else:
             State.MOUSE_SPD = math.sqrt(movement[0]**2 + movement[1]**2)
             State.MOUSE_DIRECTION = (movement[0]/State.MOUSE_SPD, movement[1]/State.MOUSE_SPD)
+            
+        pass
         
 
     def frameTasks(self):
