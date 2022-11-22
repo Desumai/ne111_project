@@ -21,7 +21,14 @@ def main():
 
 def gameLoop():
     while isRunning:
-        currentTime
+        startTime = time.time()
+        nextFrameTime = startTime + 1/const.FPS
+
+        fh.frameTasks()
+
+        timeRemaining = nextFrameTime - time.time()
+        if(timeRemaining > 0):
+            time.sleep(timeRemaining)
 
 
 if (__name__ == "__main__"):
