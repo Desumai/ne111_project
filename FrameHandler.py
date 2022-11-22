@@ -1,4 +1,7 @@
 
+import pygame as pg
+from States import State
+import math
 
 class FrameHandler():
     """
@@ -8,6 +11,7 @@ class FrameHandler():
     def __init__(self) -> None:
         self.updateList = []
         self.renderList = []
+        self.mousePrevPos = ()
 
 
     def addGameObject(gameObject, self):
@@ -39,5 +43,30 @@ class FrameHandler():
             elif (gameObject.isActive):
                 gameObject.update()
 
+    def handleEvents(self):
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                State.IS_RUNNING == False
+            pass
+
+    def calcMouseMovement(self) -> tuple:
+        """
+            () -> tuple (int, int)
+            calculates the movement of the mouse and gives information to [State]
+        """
+        
+        State.MOUSE_POS = pg.mouse.get_pos()
+        movement = pg.mouse.get_rel()
+
+        if(movement == (0, 0)):
+            State.MOUSE_SPD = 0
+            State.MOUSE_DIRECTION = (0, 0)
+        else:
+            State.MOUSE_SPD = math.sqrt(movement[0]**2 + movement[1]**2)
+            State.MOUSE_DIRECTION = (movement[0]/State.MOUSE_SPD, movement[1]/State.MOUSE_SPD)
+        
+
     def frameTasks(self):
+        self.handleEvents()
+        self.calcMouseMovement()
         pass

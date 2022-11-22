@@ -4,12 +4,13 @@
 import pygame as pg
 from Constants import Constants as const
 from FrameHandler import FrameHandler
+from States import State
 import time
 import threading
 
 pg.init()
 
-fh = FrameHandler()
+
 
 def main():
     # TODO: create game window on startup and initialize game constants
@@ -17,13 +18,15 @@ def main():
     pg.display.set_caption(const.GAME_NAME)
     screen.fill(const.BACKGROUND_COLOR)
     pg.display.flip()
-    global isRunning
-    isRunning = True
+    global fh
+    fh = FrameHandler()
+    State.init(screen = screen, frameHandler = fh)
+
     gameLoop()
     pass
 
 def gameLoop():
-    while isRunning:
+    while State.IS_RUNNING:
         startTime = time.time()
         nextFrameTime = startTime + 1/const.FPS
 
@@ -32,6 +35,8 @@ def gameLoop():
         timeRemaining = nextFrameTime - time.time()
         if(timeRemaining > 0):
             time.sleep(timeRemaining)
+        
+        #print(1/(time.time()-startTime)) #print fps
 
 
 if (__name__ == "__main__"):

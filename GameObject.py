@@ -12,21 +12,21 @@ class GameObject(ABC):
         self.renderPriority = 0 ##same as "updatePriority". Game objects that are rendered LAST will be drawn ontop of other game objects (i think)
 
     @abstractmethod
-    def start():
+    def start(self):
         """
             runs once when the game object is created
         """
         pass
 
     @abstractmethod
-    def onDestroy():
+    def onDestroy(self):
         """
             runs once when the game object is destroyed
         """
         pass
 
     @abstractmethod
-    def update():
+    def update(self):
         """
             runs once every frame. Used to update the game object
             runs before screen rendering, the "render()" methods
@@ -34,7 +34,7 @@ class GameObject(ABC):
         pass
 
     @abstractmethod
-    def render():
+    def render(self):
         """
             runs once every frame. Used to update the game object's graphics on the game screen
             runs after frame updates, the "update()" methods
