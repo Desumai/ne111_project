@@ -9,14 +9,17 @@ import threading
 
 pg.init()
 
-isRunning = True
 fh = FrameHandler()
 
 def main():
     # TODO: create game window on startup and initialize game constants
     screen = pg.display.set_mode(const.SCREEN_SIZE)
+    pg.display.set_caption(const.GAME_NAME)
+    screen.fill(const.BACKGROUND_COLOR)
+    pg.display.flip()
+    global isRunning
     isRunning = True
-    
+    gameLoop()
     pass
 
 def gameLoop():
