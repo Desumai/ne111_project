@@ -9,6 +9,9 @@ class State():
     SCREEN = None ## the screen of the game
     IS_RUNNING = True
     FRAME_HANDLER = None
+    MOUSE_SPD = 0
+    MOUSE_DIRECTION = None
+    MOUSE_POS = None
 
     @staticmethod
     def init(screen, frameHandler):
