@@ -5,6 +5,7 @@ import pygame as pg
 from Constants import Constants as const
 from FrameHandler import FrameHandler
 from States import State
+from ThrowableItems.BasicItem import BasicItem
 import time
 import threading
 
@@ -17,11 +18,14 @@ def main():
     screen = pg.display.set_mode(const.SCREEN_SIZE)
     pg.display.set_caption(const.GAME_NAME)
     screen.fill(const.BACKGROUND_COLOR)
+    State.SCREEN = screen
     pg.display.flip()
     global fh
     fh = FrameHandler()
     State.init(screen = screen, frameHandler = fh)
-
+    #test objects
+    fh.addThrowable(BasicItem(position = (20, 20), size = (30, 40), sprite = None))
+    fh.addThrowable(BasicItem(position = (50, 500), size = (25, 75), sprite = None))
     gameLoop()
     pass
 
