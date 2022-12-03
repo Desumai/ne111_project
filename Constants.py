@@ -11,6 +11,7 @@ class Constants:
         1 : "gravity",
         2 : "bounce"
     }
+    THROW_OVER_HEIGHT = 50
 
     def init():
         pass

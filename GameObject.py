@@ -11,7 +11,7 @@ class GameObject(ABC):
         self.isActive = True
         self.updatePriority = 0 ##priority for updating. 0 by default. The greater the number, the higher its priority to be updated first. Negative numbers are allowed
         self.renderPriority = 0 ##same as "updatePriority". Game objects that are rendered LAST will be drawn ontop of other game objects (i think)
-        self.pos = None
+        self.pos = None #the coordinate for the top left corner of the object. A two entry float tuple
         self.size = (0 ,0)
         self.sprite = None
         self.velocity = (0, 0)
