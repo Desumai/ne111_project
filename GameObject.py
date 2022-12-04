@@ -17,19 +17,6 @@ class GameObject(ABC):
         self.velocity = (0, 0)
         self.center = None #coordinate of center of game object
 
-    @abstractmethod
-    def start(self):
-        """
-            runs once when the game object is created
-        """
-        pass
-
-    @abstractmethod
-    def onDestroy(self):
-        """
-            runs once when the game object is destroyed
-        """
-        pass
 
     @abstractmethod
     def update(self):
@@ -47,14 +34,6 @@ class GameObject(ABC):
         """
         pass
 
-    @abstractmethod
-    def contains(self, point) -> bool:
-        """
-            (tuple(int, int)) -> bool
-
-            Determines if a point on the screen is contained in the game object. Returns [True] if contained, else returns [False]. [point] is a 2-point tuple of two integers in the format (x, y) with the upper left corner of the screen being (0, 0). 
-        """
-        pass
 
     def getCenter(self):
         return (self.pos[0] + self.size[0]/2, self.pos[1] + self.size[1]/2)

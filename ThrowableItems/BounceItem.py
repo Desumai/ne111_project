@@ -57,7 +57,7 @@ class BounceItem(ThrowableObject):
                 x = const.SCREEN_SIZE[0] - self.size[0]
                 xVel *= -1
             if(y <= const.THROW_OVER_HEIGHT):
-                y = const.THROW_OVER_HEIGHT
+                y = const.THROW_OVER_HEIGHT + 1
                 yVel *= -1
             elif(y >= const.SCREEN_SIZE[1]- self.size[1]):
                 y = const.SCREEN_SIZE[1] - self.size[1]

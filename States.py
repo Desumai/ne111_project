@@ -7,20 +7,23 @@ class State():
 
     SCENE = 0 ##current scene of the game
     SCREEN = None ## the screen of the game
-    IS_RUNNING = True
+    IS_RUNNING = False
     FRAME_HANDLER = None
     MOUSE_SPD = 0
     MOUSE_DIRECTION = None
     MOUSE_POS = None
+    TIMER_FONT = None
 
     @staticmethod
     def init(screen, frameHandler):
-        global SCENE
-        global SCREEN
-        global IS_RUNNING
-        global FRAME_HANDLER
+        print("blah")
+        State.SCENE = 0
+        State.SCREEN = screen
+        State.IS_RUNNING = True
+        State.FRAME_HANDLER = frameHandler
+        State.TIMER_FONT = pg.font.Font("Photonico.ttf", 32)
 
-        SCENE = 0
-        SCREEN = screen
-        IS_RUNNING = True
-        FRAME_HANDLER = frameHandler
+    @staticmethod
+    def newGame(screen, frameHandler):
+        State.init(screen= screen, frameHandler= frameHandler)
+        

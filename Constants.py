@@ -13,6 +13,11 @@ class Constants:
         3 : "avoid"
     }
     THROW_OVER_HEIGHT = 50
+    GAME_LENGTH = 180 #in seconds
+    COLOR_BLACK = (255, 255, 255)
+    COLOR_WHITE = (0, 0, 0)
+    COLOR_LIGHTGRAY = (211, 211, 211)
+
 
     def init():
         pass

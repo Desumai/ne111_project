@@ -61,7 +61,9 @@ class GravityItem(ThrowableObject):
                 yVel = 0
                 xVel = 0
             elif(y <= const.THROW_OVER_HEIGHT):
-                y = const.THROW_OVER_HEIGHT
+                y = const.THROW_OVER_HEIGHT + 1
+                if(yVel <= 0): yVel = 1
+                else: yVel *= -1
             else:
                 yVel += 1
             self.pos = (x, y)

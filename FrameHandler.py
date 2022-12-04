@@ -24,7 +24,7 @@ class FrameHandler():
 
         ##sort the lists by prioritites
         self.updateList.sort(key=lambda x: x.updatePriority, reverse = True)
-        self.renderList.sort(key=lambda x: x.RenderPriority, reverse = True)
+        self.renderList.sort(key=lambda x: x.renderPriority, reverse = True)
 
 
     def removeGameObject(self, gameObject):

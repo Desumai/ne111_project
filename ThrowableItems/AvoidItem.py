@@ -56,7 +56,7 @@ class AvoidItem(ThrowableObject):
                 self.velocity = (xVel, yVel)
                 self.translate(self.velocity)
                 if(self.pos[1] <= const.THROW_OVER_HEIGHT):
-                    self.pos = (self.pos[0], const.THROW_OVER_HEIGHT)
+                    self.pos = (self.pos[0], const.THROW_OVER_HEIGHT + 1)
             else:
                 self.velocity = (0, 0)
         self.rigidBody = pygame.Rect(self.pos, self.size)
