@@ -20,7 +20,8 @@ class BounceItem(ThrowableObject):
             self.velocity = velocity
             self.flyTimer = self.flyDuration
         self.throwSpeed = 10
-        
+        self.type = 2
+
     def throwSpeedFunction(self):
         return self.throwSpeed
 
