@@ -1,9 +1,10 @@
 import math
+from States import State as STATES
 
 class ExtraFunctions():
     
-    @classmethod
-    def tupleAdd(self, t1, t2) -> tuple:
+    @staticmethod
+    def tupleAdd(t1, t2) -> tuple:
         """
         (tuple, tuple) -> tuple
 
@@ -22,8 +23,8 @@ class ExtraFunctions():
             list.append(t1[i] + t2[i])
         return tuple(i for i in list)
 
-    @classmethod
-    def tupleFloatToInt(self, t) -> tuple:
+    @staticmethod
+    def tupleFloatToInt(t) -> tuple:
         """
         (tuple(float, float, ...)) -> tuple(int, int, ...)
 
@@ -35,3 +36,15 @@ class ExtraFunctions():
             list.append(round(i))
 
         return list
+
+    @staticmethod
+    def calculateDistanceFromMouse(point):
+        """
+        (tuple(float, float)) -> float
+
+        calculates the distance from the current/last mouse position to [point]. Returns the distance as a float
+        """
+        x = point[0] - STATES.MOUSE_POS[0]
+        y = point[1] - STATES.MOUSE_POS[1]
+
+        return math.sqrt((x**2)+(y**2))

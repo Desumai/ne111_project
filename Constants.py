@@ -9,7 +9,8 @@ class Constants:
     THROWING_TYPES = {
         0 : "basic",
         1 : "gravity",
-        2 : "bounce"
+        2 : "bounce",
+        3 : "avoid"
     }
     THROW_OVER_HEIGHT = 50
 
