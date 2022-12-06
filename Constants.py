@@ -18,6 +18,12 @@ class Constants:
     COLOR_WHITE = (0, 0, 0)
     COLOR_LIGHTGRAY = (211, 211, 211)
 
+    #connectivity
+    HEADER_LENGTH = 64 #tells us how long the header sent is. header used to tell how many bites the message sent from client is
+    PORT = 5050
+    FORMAT = 'utf-8'
+    DISCONNECT_MSG = "!!!"
+
 
     def init():
         pass

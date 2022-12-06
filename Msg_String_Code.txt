@@ -1,0 +1,30 @@
+Format for Wireless Messages
+
+
+    The decoded messages are in the form "TTT:XXX XXX XXX XXX" where "TTT" is some identifier for type of message that was sent and the "XXX"s are the data values of the message
+
+    Message Identifiers:
+        'd' - request for disconnection
+        'o' - addition of throwable to receiver's side
+        's' - request for score
+        'c' - message containing sender's score
+        't' - length of time for game
+
+    Message Formats:
+        Disconnection Request - 'd:'
+
+        Throwable Spawn - 'o: typ size xVal vel' where: 
+            typ - type of throwable to create on the receiver's side. An integer
+            size - size of throwable. Two integers seperated by a comma (width, height) (e.g. "12,14")
+            xVal - horizontal location where the throwable is to spawn on the receiver's side. An integer
+            vel - velocity of the throwable. Two floats seperated by a comma (x vel, y vel) (e.g. "12.0,14.0")
+
+        Score Request - 'o:'
+        
+        Sender's Score Data - 'c:scr' where:
+            src - score of the sender. A single integer
+
+        Game Length Data - 't:time' where:
+            time - the set length for a game. A single integer, representing the game length in minutes
+
+
