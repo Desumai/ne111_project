@@ -6,7 +6,6 @@ from GameObject import GameObject
 from ThrowableObject import ThrowableObject
 from States import State as STATES
 from Constants import Constants as const
-from ExtraFunctions import ExtraFunctions as EF
 
 class BounceItem(ThrowableObject):
     def __init__(self, position, size, sprite, velocity = (0, 0) ) -> None:
@@ -37,6 +36,8 @@ class BounceItem(ThrowableObject):
         pass
 
     def update(self):
+        if(self.checkIfThrownOver()):
+            self.handleThrownOver()
         if(self.isClicked):
             self.velocity = (0, 0)
             self.pos = self.getPosFromCenter(STATES.MOUSE_POS)

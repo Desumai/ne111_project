@@ -1,7 +1,6 @@
 import pygame as pg
 from abc import ABC, abstractmethod
 from GameObject import GameObject
-from ExtraFunctions import ExtraFunctions as EF
 from States import State as STATES
 
 class ThrowableObject(GameObject, ABC):
@@ -54,4 +53,18 @@ class ThrowableObject(GameObject, ABC):
         self.isClicked = False
         self.flyTimer = self.flyDuration
         self.velocity = (self.throwSpeed * STATES.MOUSE_DIRECTION[0], self.throwSpeed * STATES.MOUSE_DIRECTION[1])
+    
+    def createMsg(self):
+        from Constants import Constants
+        return f"o:{self.type} {self.size[0]},{self.size[1]} {Constants.SCREEN_SIZE[0] - self.pos[0]} {-self.velocity[0]},{-self.velocity[1]}" 
+    
+    def checkIfThrownOver(self):
+        from Constants import Constants
+        #considered thrown over if more than half of the object is over the line
+        return (self.flyTimer >0) and (self.pos[1] + self.size[1]/2 < Constants.THROW_OVER_HEIGHT)
+
+    def handleThrownOver(self):
+        import connection
+        STATES.FRAME_HANDLER.removeThrowable(throwableObject=self)
+        connection.sendMsg(self.createMsg)
 

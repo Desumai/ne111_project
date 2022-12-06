@@ -2,11 +2,9 @@ import sys
 sys.path.append((sys.path[0])[0:sys.path[0].rfind('ThrowableItems')])
 
 import pygame
-from GameObject import GameObject
 from ThrowableObject import ThrowableObject
 from States import State as STATES
 from Constants import Constants as const
-from ExtraFunctions import ExtraFunctions as EF
 
 class GravityItem(ThrowableObject):
     def __init__(self, position, size, sprite, velocity = (0, 0) ) -> None:
@@ -37,6 +35,8 @@ class GravityItem(ThrowableObject):
         pass
 
     def update(self):
+        if(self.checkIfThrownOver()):
+            self.handleThrownOver()
         if(self.isClicked):
             self.velocity = (0, 0)
             self.pos = self.getPosFromCenter(STATES.MOUSE_POS)

@@ -31,7 +31,8 @@ def clientListen(conn, addr):
         if(msgHeader):
             msgLength = int(msgHeader)
             msg = conn.recv(msgLength).decode(const.FORMAT)
-            print(f"[{addr}] {msg}")
+            print(f"[MSG RECEIVED] {msg}")
+            STATE.RECIEVED_MSG_QUEUE.put(msg)
 
             if(msg == const.DISCONNECT_MSG):
                 connected = False
@@ -44,10 +45,20 @@ def createServer():
 
     STATE.SOCKET_CONNECTION.listen()
     print(f"[LISTENING] server is listening on {STATE.SERVER_ID}")
-    conn, addr = STATE.SOCKET_CONNECTION.accept()
-    STATE.CONNECTION_THREAD = threading.Thread(target=handleClient, args=(conn, addr))
+    STATE.CLIENT_TUPLE = STATE.SOCKET_CONNECTION.accept()
+    STATE.CONNECTION_THREAD = threading.Thread(target=handleClient, args=(STATE.CLIENT_TUPLE[0], STATE.CLIENT_TUPLE[1]))
     STATE.CONNECTION_THREAD.start()
     print("[DISCONNECTED]")
+
+def serverSend(msg):
+    conn = STATE.CLIENT_TUPLE[0]
+    message = msg.encode(const.FORMAT)
+    msg_length = len(message)
+    header = str(msg_length).encode()
+    header += b' ' * (const.HEADER_LENGTH - len(header))
+    conn.send(header)
+    conn.send(message)
+
 
 def handleClient(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected")
@@ -58,9 +69,16 @@ def handleClient(conn, addr):
         if(msgHeader):
             msgLength = int(msgHeader)
             msg = conn.recv(msgLength).decode(const.FORMAT)
-            print(f"[{addr}] {msg}")
+            print(f"[MSG RECEIVED] {msg}")
+            STATE.RECIEVED_MSG_QUEUE.put(msg)
 
             if(msg == const.DISCONNECT_MSG):
                 connected = False
     conn.close()
 
+#both sides
+def sendMsg(msg):
+    if(STATE.IS_HOST):
+        serverSend(msg)
+    else:
+        clientSend(msg)

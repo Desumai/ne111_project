@@ -15,6 +15,8 @@ class State():
     MOUSE_DIRECTION = None
     MOUSE_POS = None
     TIMER_FONT = None
+    TIME_REMAINING = 1 #in milliseconds
+    SCORE = 0
 
     #connectivity
     SOCKET_CONNECTION = None
@@ -25,6 +27,7 @@ class State():
     IS_HOST = False
     RECIEVED_MSG_QUEUE = queue.Queue()
     CONNECTION_THREAD = None
+    CLIENT_TUPLE = (None, None) #only for server side
 
     @staticmethod
     def init(screen, frameHandler):
@@ -40,4 +43,5 @@ class State():
     @staticmethod
     def newGame(screen, frameHandler):
         State.init(screen= screen, frameHandler= frameHandler)
+
         

@@ -16,7 +16,6 @@ import threading
 pg.init()
 
 
-
 def main():
     screen = pg.display.set_mode(const.SCREEN_SIZE)
     pg.display.set_caption(const.GAME_NAME)

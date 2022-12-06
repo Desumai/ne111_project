@@ -20,9 +20,10 @@ class TimerBar(GameObject):
 
     def getTime(self):
         """
-        returns remaining time in milliseconds (int)
+        returns remaining time in milliseconds (int). Also saves to [STATES.TIME_REMAINING]
         """
-        return self.endTime - time.time_ns()//1000000
+        STATES.TIME_REMAINING = self.endTime - time.time_ns()//1000000
+        return STATES.TIME_REMAINING
     
     def timeToString(self, time):
         """

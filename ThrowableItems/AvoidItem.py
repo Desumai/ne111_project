@@ -6,7 +6,7 @@ from GameObject import GameObject
 from ThrowableObject import ThrowableObject
 from States import State as STATES
 from Constants import Constants as const
-from ExtraFunctions import ExtraFunctions as EF
+from ExtraFunctions import calculateDistanceFromMouse
 
 class AvoidItem(ThrowableObject):
     def __init__(self, position, size, sprite, velocity = (0, 0) ) -> None:
@@ -39,17 +39,20 @@ class AvoidItem(ThrowableObject):
         pass
 
     def update(self):
+        if(self.checkIfThrownOver()):
+            self.handleThrownOver()
         if(self.isClicked):
+            self.flyTimer = -1
             self.velocity = (0, 0)
             self.pos = self.getPosFromCenter(STATES.MOUSE_POS)
         elif(self.flyTimer > 0):
             self.simpleMove()
             self.flyTimer -= 1
-            if (self.flyTimer == 0):
+            if (self.flyTimer <= 0):
                 self.velocity = (0, 0)
         else:
             center = self.getCenter()
-            distance = EF.calculateDistanceFromMouse(center)
+            distance = calculateDistanceFromMouse(center)
             if(distance <= self.avoidRange):
                 xVel = (center[0] - STATES.MOUSE_POS[0])/distance * self.avoidSpeed
                 yVel = (center[1] - STATES.MOUSE_POS[1])/distance * self.avoidSpeed

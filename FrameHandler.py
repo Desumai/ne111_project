@@ -4,6 +4,9 @@ from States import State
 import math
 from ThrowableObject import ThrowableObject
 from Constants import Constants as const
+import sys
+import queue
+from ExtraFunctions import createThrowableObjectFromMsg
 
 class FrameHandler():
     """
@@ -80,6 +83,8 @@ class FrameHandler():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 State.IS_RUNNING == False
+                pg.quit()
+                sys.exit()
             pass
         self.handleMouseDragging()
 
@@ -106,4 +111,40 @@ class FrameHandler():
         self.calcMouseMovement()
         self.handleUpdates()
         self.handleRenders()
+        self.checkGameOver()
         pass
+
+    def checkGameOver(self):
+        if(State.TIME_REMAINING <= 0):
+            self.handleGameOver()
+
+    def handleGameOver(self):
+        State.IS_RUNNING = False
+        print("[GAME OVER]")
+
+    def handleSpawning(self):
+        
+        pass
+
+    def handleMsgs(self):
+        while(State.RECIEVED_MSG_QUEUE.qsize() > 0):
+            try:
+                msg = State.RECIEVED_MSG_QUEUE.get()
+                msgType = msg[0]
+                if(msgType == 'd'):
+                    #TODO:disconnect
+                    pass
+                if(msgType == 'o'):
+                    self.addThrowable(createThrowableObjectFromMsg(msg))
+                elif(msgType == 's'):
+                    #TODO return score
+                    pass
+                elif(msgType == 'c'):
+                    #TODO: handle score and game over
+                    pass
+                elif(msgType == 't'):
+                    const.GAME_LENGTH == int(msg[2:])
+            except queue.Empty:
+                break
+            except Exception:
+                pass
