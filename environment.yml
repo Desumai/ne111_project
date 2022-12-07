@@ -1,0 +1,23 @@
+name: ne111_env
+channels:
+  - defaults
+dependencies:
+  - bzip2=1.0.8
+  - ca-certificates=2022.10.11
+  - certifi=2022.9.24
+  - libffi=3.4.2
+  - ncurses=6.3
+  - openssl=1.1.1s
+  - pip=22.2.2
+  - python=3.10.8
+  - readline=8.2
+  - setuptools=65.5.0
+  - sqlite=3.40.0
+  - tk=8.6.12
+  - tzdata=2022g
+  - wheel=0.37.1
+  - xz=5.2.8
+  - zlib=1.2.13
+  - pip:
+    - pygame==2.1.2
+prefix: /Users/dustinsiu/opt/miniconda3/envs/ne111_env
