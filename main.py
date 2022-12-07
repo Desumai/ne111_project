@@ -1,7 +1,8 @@
 """
     Run this file to start game. 
 """
-import pygame as pg
+import pygame as pg 
+# import each class from their file so that their methods and variables can be accesed
 from Constants import Constants as const
 from FrameHandler import FrameHandler
 from States import State as STATES
@@ -17,18 +18,20 @@ pg.init()
 
 
 def main():
-    screen = pg.display.set_mode(const.SCREEN_SIZE)
-    pg.display.set_caption(const.GAME_NAME)
-    screen.fill(const.BACKGROUND_COLOR)
+    screen = pg.display.set_mode(const.SCREEN_SIZE) # Create screen variable to display the game screen using the set size from Constants class
+    pg.display.set_caption(const.GAME_NAME) # Change window title to game name 'Disk Cleanup'
+    screen.fill(const.BACKGROUND_COLOR) # Set background to white
     print(STATES.IS_RUNNING)
-    pg.display.flip()
-    fh = FrameHandler()
+    pg.display.flip() # Update entire display
+    fh = FrameHandler() # create fh as an instance of FrameHandler class
     print(STATES.IS_RUNNING)
+    # Call on newGame() function of States class and pass through newly created variables fh and screen as parameters to initialize STATES
     STATES.newGame(screen = screen, frameHandler = fh)
+    
 
-    print(STATES.IS_RUNNING)
+    print(STATES.IS_RUNNING) # Should be true after executing newGame()
     #test objects
-    fh.addGameObject(TimerBar())
+    fh.addGameObject(TimerBar()) 
     fh.addThrowable(BasicItem(position = (20, 50), size = (30, 40), sprite = None))
     fh.addThrowable(BasicItem(position = (50, 500), size = (25, 75), sprite = None))
     fh.addThrowable(BounceItem(position = (150, 100), size = (50, 60), sprite= None, velocity= (2,10)))
@@ -39,15 +42,15 @@ def main():
     pass
 
 def gameLoop():
-    while STATES.IS_RUNNING:
-        startTime = time.time()
-        nextFrameTime = startTime + 1/const.FPS
+    while STATES.IS_RUNNING: # Run this as long as IS_RUNNING is true
+        startTime = time.time() # How much time has passed since the epoch in Coordinated Universal Time
+        nextFrameTime = startTime + 1/const.FPS # Create variable to track when the next frame will occur  
 
-        STATES.FRAME_HANDLER.frameTasks()
+        STATES.FRAME_HANDLER.frameTasks() # Run frameTasks; does all events that need to be completed each frame
 
-        timeRemaining = nextFrameTime - time.time()
+        timeRemaining = nextFrameTime - time.time() # Find out how much time is left before next frame
         if(timeRemaining > 0):
-            time.sleep(timeRemaining)
+            time.sleep(timeRemaining) # If there is still time left until the next frame stop this function from repeating to avoid updating the data twice in the same frame
         
         #print(1/(time.time()-startTime)) #print fps
 

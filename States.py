@@ -30,7 +30,7 @@ class State():
     CLIENT_TUPLE = (None, None) #only for server side
 
     @staticmethod
-    def init(screen, frameHandler):
+    def init(screen, frameHandler): # set values of variables when called upon from newGame()
         from Constants import Constants
         print("blah")
         State.SCENE = 0
@@ -41,7 +41,7 @@ class State():
         State.ADDRESS = (State.SERVER_ID, Constants.PORT)
 
     @staticmethod
-    def newGame(screen, frameHandler):
+    def newGame(screen, frameHandler): # Called upon from main.py when game starts 
         State.init(screen= screen, frameHandler= frameHandler)
 
         

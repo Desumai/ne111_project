@@ -45,7 +45,7 @@ class GameObject(ABC):
         """
         (tuple(float, float)) -> bool
 
-        translates [self] by [xy] but stops [self] from going out of bounds. If [self] was stoped, returns [False]. Else returns [True]
+        translates [self] by [xy] but stops [self] from going out of bounds. If [self] was stopped, returns [False]. Else returns [True]
         """
         fullyMoved = True
         x = max(min(self.pos[0] + xy[0], const.SCREEN_SIZE[0] - self.size[0]), 0)

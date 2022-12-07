@@ -6,7 +6,7 @@ class Constants:
     SCREEN_SIZE = (1080, 720)
     GAME_NAME = "Disk Cleanup" ##can change name later
     BACKGROUND_COLOR = (255, 255, 255)
-    THROWING_TYPES = {
+    THROWING_TYPES = { # different types of game objects to be thrown over
         0 : "basic",
         1 : "gravity",
         2 : "bounce",
@@ -21,7 +21,7 @@ class Constants:
 
     #connectivity
     HEADER_LENGTH = 1024 #tells us how long the header sent is. header used to tell how many bites the message sent from client is
-    PORT = 5050
+    PORT = 5050 # Port which all data will pass through
     FORMAT = 'utf-8'
     DISCONNECT_MSG = 'd'
 
