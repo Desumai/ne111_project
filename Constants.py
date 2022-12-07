@@ -12,6 +12,14 @@ class Constants:
         2 : "bounce",
         3 : "avoid"
     }
+
+    THROWING_TYPES_SCORES = {
+        "basic" : 1,
+        "gravity" : 1,
+        "bounce" : 2,
+        "avoid" : 3
+    }
+
     THROW_OVER_HEIGHT = 50
     GAME_LENGTH = 180 #in seconds
     COLOR_BLACK = (255, 255, 255)
