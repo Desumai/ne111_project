@@ -56,12 +56,13 @@ class ThrowableObject(GameObject, ABC):
     
     def createMsg(self):
         from Constants import Constants
-        return f"o:{self.type} {self.size[0]},{self.size[1]} {Constants.SCREEN_SIZE[0] - self.pos[0]} {-self.velocity[0]},{-self.velocity[1]}" 
-    
+        msg = f"o:{self.type} {self.size[0]},{self.size[1]} {Constants.SCREEN_SIZE[0] - self.pos[0]} {-self.velocity[0]},{-self.velocity[1]}" 
+        return msg
+
     def checkIfThrownOver(self):
         from Constants import Constants
         #considered thrown over if more than half of the object is over the line
-        return (self.flyTimer >0) and (self.pos[1] + self.size[1]/2 < Constants.THROW_OVER_HEIGHT)
+        return ((self.flyTimer >0) and (self.pos[1] + self.size[1]/2 < Constants.THROW_OVER_HEIGHT))
 
     def handleThrownOver(self):
         import connection

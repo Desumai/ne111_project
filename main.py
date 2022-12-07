@@ -12,19 +12,37 @@ from ThrowableItems.GravityItem import GravityItem
 from ThrowableItems.AvoidItem import AvoidItem
 from TimerBar import TimerBar
 import time
+import connection
 import threading
 
 pg.init()
 
 
 def main():
+    print("[STARTING] Program is starting...")
+    print("[INPUT REQUSTED] Do you wish to host a game(y/n)?")
+    userInput = input()
+    if(userInput == 'y'):
+        STATES.IS_HOST = True
+        STATES.SERVER_ID = connection.getAddress()
+        print(f"[SERVER CREATED] Your server address is: {STATES.SERVER_ID} . Provide this address to your oppponent.")
+        connection.createServer()
+        pass
+    elif(userInput == 'n'):
+        STATES.IS_HOST = False
+        print('[INPUT REQUIRED] Enter the server address of the host:')
+        STATES.SERVER_ID = input()
+        connection.createClient()
+        pass
+    else:
+        print("[ERROR] Invalid input. Program is closing...")
+        time.sleep(3)
+        return
     screen = pg.display.set_mode(const.SCREEN_SIZE) # Create screen variable to display the game screen using the set size from Constants class
     pg.display.set_caption(const.GAME_NAME) # Change window title to game name 'Disk Cleanup'
     screen.fill(const.BACKGROUND_COLOR) # Set background to white
-    print(STATES.IS_RUNNING)
     pg.display.flip() # Update entire display
-    fh = FrameHandler() # create fh as an instance of FrameHandler class
-    print(STATES.IS_RUNNING)
+    fh = FrameHandler() # create fh as an instance of FrameHandler class\
     # Call on newGame() function of States class and pass through newly created variables fh and screen as parameters to initialize STATES
     STATES.newGame(screen = screen, frameHandler = fh)
     

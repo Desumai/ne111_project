@@ -7,10 +7,12 @@ import threading
 #client side
 def createClient():
     STATE.SOCKET_CONNECTION = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+    print(f"[CONNECTION PENDING] Attempting to connect to server {STATE.SERVER_ID}")
     STATE.SOCKET_CONNECTION.connect(STATE.ADDRESS)
-    print(f"[CONNECTED] server = {STATE.ADDRESS}")
+    print(f"[CONNECTED]")
     conn, addr = STATE.SOCKET_CONNECTION.accept()
     STATE.CONNECTION_THREAD = threading.Thread(target=clientListen, args=(conn, addr))
+    print("[STARTING GAME]")
     STATE.CONNECTION_THREAD.start()
     print("[DISCONNECTED]")
     
@@ -34,19 +36,27 @@ def clientListen(conn, addr):
             print(f"[MSG RECEIVED] {msg}")
             STATE.RECIEVED_MSG_QUEUE.put(msg)
 
-            if(msg == const.DISCONNECT_MSG):
+            if(msg[0] == 'd'):
                 connected = False
     conn.close()
 
 #server side
 def createServer():
+    STATE.SERVER_ID = socket.gethostbyname(socket.gethostname())
+    STATE.ADDRESS = (STATE.SERVER_ID, const.PORT)
+
     STATE.SOCKET_CONNECTION = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     STATE.SOCKET_CONNECTION.bind(STATE.ADDRESS)
 
     STATE.SOCKET_CONNECTION.listen()
-    print(f"[LISTENING] server is listening on {STATE.SERVER_ID}")
+    print(f"[SERVER CREATED] Your server address is: {STATE.SERVER_ID} . Provide this address to your oppponent.")
+    print('[WAITING] Now waiting for opponent to connect')
     STATE.CLIENT_TUPLE = STATE.SOCKET_CONNECTION.accept()
     STATE.CONNECTION_THREAD = threading.Thread(target=handleClient, args=(STATE.CLIENT_TUPLE[0], STATE.CLIENT_TUPLE[1]))
+    
+    STATE.CLIENT_TUPLE[0].recv(const.HEADER_LENGTH).decode(const.FORMAT) #waits until connection pings connected msg
+    print("[CONNECTED] Game will now start")
+
     STATE.CONNECTION_THREAD.start()
     print("[DISCONNECTED]")
 
@@ -61,7 +71,6 @@ def serverSend(msg):
 
 
 def handleClient(conn, addr):
-    print(f"[NEW CONNECTION] {addr} connected")
 
     connected = True
     while connected:
@@ -72,7 +81,7 @@ def handleClient(conn, addr):
             print(f"[MSG RECEIVED] {msg}")
             STATE.RECIEVED_MSG_QUEUE.put(msg)
 
-            if(msg == const.DISCONNECT_MSG):
+            if(msg[0] == 'd'):
                 connected = False
     conn.close()
 
@@ -82,3 +91,7 @@ def sendMsg(msg):
         serverSend(msg)
     else:
         clientSend(msg)
+
+
+def getAddress():
+    return socket.gethostbyname(socket.gethostname())

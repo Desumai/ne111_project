@@ -20,10 +20,8 @@ class State():
 
     #connectivity
     SOCKET_CONNECTION = None
-    SERVER_ID = '10.34.134.239'
+    SERVER_ID = ''
     ADDRESS = None
-    FORMAT = 'utf-8'
-    DISCONNECT_MSG = "!!!"
     IS_HOST = False
     RECIEVED_MSG_QUEUE = queue.Queue()
     CONNECTION_THREAD = None

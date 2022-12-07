@@ -31,7 +31,6 @@ class Constants:
     HEADER_LENGTH = 1024 #tells us how long the header sent is. header used to tell how many bites the message sent from client is
     PORT = 5050 # Port which all data will pass through
     FORMAT = 'utf-8'
-    DISCONNECT_MSG = 'd'
 
 
     def init():
