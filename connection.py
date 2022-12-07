@@ -6,6 +6,7 @@ import threading
 
 #client side
 def createClient():
+    STATE.ADDRESS = (STATE.SERVER_ID, const.PORT)
     STATE.SOCKET_CONNECTION = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
     print(f"[CONNECTION PENDING] Attempting to connect to server {STATE.SERVER_ID}")
     STATE.SOCKET_CONNECTION.connect(STATE.ADDRESS)
