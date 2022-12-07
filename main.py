@@ -25,7 +25,7 @@ def main():
     if(userInput == 'y'):
         STATES.IS_HOST = True
         STATES.SERVER_ID = connection.getAddress()
-        print(f"[SERVER CREATED] Your server address is: {STATES.SERVER_ID} . Provide this address to your oppponent.")
+        
         connection.createServer()
         pass
     elif(userInput == 'n'):

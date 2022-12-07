@@ -7,6 +7,7 @@ from Constants import Constants as const
 import sys
 import queue
 from ExtraFunctions import createThrowableObjectFromMsg
+from random import randint, uniform
 
 class FrameHandler():
     """
@@ -109,6 +110,7 @@ class FrameHandler():
     def frameTasks(self):
         self.handleEvents()
         self.calcMouseMovement()
+        self.handleSpawning()
         self.handleUpdates()
         self.handleRenders()
         self.checkGameOver()
@@ -123,8 +125,27 @@ class FrameHandler():
         print("[GAME OVER]")
 
     def handleSpawning(self):
-        
+        if(randint(1, const.SPAWN_PROBABILITY) == const.SPAWN_PROBABILITY//2):
+            spawnType = randint(0, 3)
+            self.addThrowable(self.spawn(spawnType))
         pass
+
+    def spawn(self, type):
+        from ThrowableItems.BasicItem import BasicItem
+        from ThrowableItems.AvoidItem import AvoidItem
+        from ThrowableItems.GravityItem import GravityItem
+        from ThrowableItems.BounceItem import BounceItem
+        size = (randint(15, const.THROW_OVER_HEIGHT-5), randint(15, const.THROW_OVER_HEIGHT-5))
+        position = (randint(0, const.SCREEN_SIZE[0] - size[0]), randint(const.THROW_OVER_HEIGHT + 1, const.SCREEN_SIZE[1] - size[1]))
+
+        if(type == 0):
+            return BasicItem(position=position, size=size, sprite=None)
+        elif(type == 1):
+            return GravityItem(position=position, size=size, sprite=None)
+        elif(type == 2):
+            return BounceItem(position=position, size=size, sprite=None, velocity=(randint(0, 9)*uniform(-1, 1), randint(0, 9)*uniform(-1, 1)))
+        elif(type == 3):
+            return AvoidItem(position=position, size=size, sprite=None)
 
     def handleMsgs(self):
         while(State.RECIEVED_MSG_QUEUE.qsize() > 0):
