@@ -148,3 +148,8 @@ class FrameHandler():
                 break
             except Exception:
                 pass
+    def calculateScore(self):
+        score = 0
+        for _ in self.throwableList:
+            score += const.THROWING_TYPES_SCORES[const.THROWING_TYPES[str(_.type)]]
+        return score
