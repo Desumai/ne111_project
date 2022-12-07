@@ -1,4 +1,5 @@
    
+#more useful functions that can be used in other classes 
 def tupleAdd(t1, t2) -> tuple:
     """
     (tuple, tuple) -> tuple

@@ -6,7 +6,7 @@ from ThrowableObject import ThrowableObject
 from States import State as STATES
 from Constants import Constants as const
 
-class BasicItem(ThrowableObject):
+class BasicItem(ThrowableObject): #throwable with stationary behaviour
     def __init__(self, position, size, sprite, velocity = (0, 0) ) -> None:
         super().__init__()
 

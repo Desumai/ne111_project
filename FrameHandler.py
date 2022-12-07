@@ -22,7 +22,7 @@ class FrameHandler():
         self.leftMouseIsDown = False
 
 
-    def addGameObject(self, gameObject):
+    def addGameObject(self, gameObject): #adds game object to list of object to update and render every frame
         self.updateList.append(gameObject)
         self.renderList.append(gameObject)
 
@@ -31,11 +31,11 @@ class FrameHandler():
         self.renderList.sort(key=lambda x: x.renderPriority, reverse = True)
 
 
-    def removeGameObject(self, gameObject):
+    def removeGameObject(self, gameObject): #removes game object from list of objects to render and update, effectively "destroying" it from the game
         self.updateList.remove(gameObject)
         self.renderList.remove(gameObject)
 
-    def addThrowable(self, throwableObject):
+    def addThrowable(self, throwableObject): #like addGameObject but for throwables
         self.throwableList.append(throwableObject)
     
     def removeThrowable(self, throwableObject = None, index = None):
@@ -44,7 +44,7 @@ class FrameHandler():
         elif(index is not None and throwableObject is None):
             del self.throwableList[index]
 
-    def handleUpdates(self):
+    def handleUpdates(self): #object updates per frame
         for gameObject in self.updateList:
             if (gameObject is None):
                 self.removeGameObject(gameObject)
@@ -54,7 +54,7 @@ class FrameHandler():
             temp.update()
     
 
-    def handleRenders(self):
+    def handleRenders(self): #object rendering per frame
         pg.draw.rect(State.SCREEN, (255, 255, 255), pg.Rect(0,0, const.SCREEN_SIZE[0], const.SCREEN_SIZE[1]))
         for gameObject in self.renderList:
             if (gameObject is None):
@@ -65,7 +65,7 @@ class FrameHandler():
             temp.render()
         pg.display.flip()
 
-    def handleMouseDragging(self):
+    def handleMouseDragging(self): #handles mouse movement and behaviours
         mousePressedState = pg.mouse.get_pressed()
         if (mousePressedState[0]):
             if(not self.leftMouseIsDown): #left mouse click
@@ -80,7 +80,7 @@ class FrameHandler():
                 throwableObject.handleThrow()
             self.leftMouseIsDown = False
 
-    def handleEvents(self):
+    def handleEvents(self): #handle pygame events
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 State.IS_RUNNING == False
@@ -107,7 +107,7 @@ class FrameHandler():
         pass
         
 
-    def frameTasks(self):
+    def frameTasks(self): #tasks to do every frame
         self.handleEvents()
         self.calcMouseMovement()
         self.handleSpawning()
@@ -124,13 +124,13 @@ class FrameHandler():
         State.IS_RUNNING = False
         print("[GAME OVER]")
 
-    def handleSpawning(self):
+    def handleSpawning(self): #handles the spontaneous spawning behaviour of throwables
         if(randint(1, const.SPAWN_PROBABILITY) == const.SPAWN_PROBABILITY//2):
             spawnType = randint(0, 3)
             self.addThrowable(self.spawn(spawnType))
         pass
 
-    def spawn(self, type):
+    def spawn(self, type): #spawns a randomized throwable of a given type
         from ThrowableItems.BasicItem import BasicItem
         from ThrowableItems.AvoidItem import AvoidItem
         from ThrowableItems.GravityItem import GravityItem
@@ -147,7 +147,7 @@ class FrameHandler():
         elif(type == 3):
             return AvoidItem(position=position, size=size, sprite=None)
 
-    def handleMsgs(self):
+    def handleMsgs(self): #handles the queue of messages sent by the opposing player
         while(State.RECIEVED_MSG_QUEUE.qsize() > 0):
             try:
                 msg = State.RECIEVED_MSG_QUEUE.get()
@@ -169,7 +169,8 @@ class FrameHandler():
                 break
             except Exception:
                 pass
-    def calculateScore(self):
+
+    def calculateScore(self): #calculates player's current score
         score = 0
         for _ in self.throwableList:
             score += const.THROWING_TYPES_SCORES[const.THROWING_TYPES[str(_.type)]]

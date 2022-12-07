@@ -9,22 +9,22 @@ class State():
 
     SCENE = 0 ##current scene of the game
     SCREEN = None ## the screen of the game
-    IS_RUNNING = False
-    FRAME_HANDLER = None
+    IS_RUNNING = False #if the "game" part is running 
+    FRAME_HANDLER = None #reference to the FrameHandler object used for the game
     MOUSE_SPD = 0
     MOUSE_DIRECTION = None
     MOUSE_POS = None
-    TIMER_FONT = None
+    TIMER_FONT = None #font object for the timer font
     TIME_REMAINING = 1 #in milliseconds
     SCORE = 0
 
     #connectivity
-    SOCKET_CONNECTION = None
-    SERVER_ID = ''
-    ADDRESS = None
-    IS_HOST = False
-    RECIEVED_MSG_QUEUE = queue.Queue()
-    CONNECTION_THREAD = None
+    SOCKET_CONNECTION = None #the socket.socket of the client/server
+    SERVER_ID = '' #id of the host server. Supposed to be the host's bluetooht MAC address but the ipv4 address is used instead
+    ADDRESS = (None, None) #tuple containing server id and port
+    IS_HOST = False #if this application is being the server host or client
+    RECIEVED_MSG_QUEUE = queue.Queue() #Queue of the messages recieved from the opposing player. Queue should be checked emptied out each frame
+    CONNECTION_THREAD = None 
     CLIENT_TUPLE = (None, None) #only for server side
 
     @staticmethod
