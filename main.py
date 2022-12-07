@@ -19,6 +19,7 @@ pg.init()
 
 
 def main():
+    #setup server-client connections
     print("[STARTING] Program is starting...")
     print("[INPUT REQUSTED] Do you wish to host a game(y/n)?")
     userInput = input()
@@ -38,6 +39,7 @@ def main():
         print("[ERROR] Invalid input. Program is closing...")
         time.sleep(3)
         return
+    #setup GUI
     screen = pg.display.set_mode(const.SCREEN_SIZE) # Create screen variable to display the game screen using the set size from Constants class
     pg.display.set_caption(const.GAME_NAME) # Change window title to game name 'Disk Cleanup'
     screen.fill(const.BACKGROUND_COLOR) # Set background to white
